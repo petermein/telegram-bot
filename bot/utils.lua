@@ -378,6 +378,7 @@ function urlencode(str)
         str = string.gsub (str, " ", "+")
     end
     return str
+  end
 
 -- Parameters in ?a=1&b=2 style
 function format_http_params(params, is_get)
