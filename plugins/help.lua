@@ -56,15 +56,20 @@ function run(msg, matches)
   if matches[1] == "!help md" then
     return html_help()
   else
-    return telegram_help()
+    if (msg['to']['type'] == 'user') then
+        return telegram_help()
+    else
+        receiver = get_receiver_force_user(msg)
+        send_msg(receiver, telegram_help(), ok_cb, false)
+        return
+    end
   end
 end
 
 return {
     description = "Help plugin. Get info from other plugins.  ", 
     usage = {
-      "!help: Show all the help",
-      "!help md: Generate a GitHub Markdown table"
+      "!help: Show all the help"
     },
     patterns = {
       "^!help$",

@@ -11,10 +11,15 @@ end
 
 function search(text)
   local api_key = "dc6zaTOxFJmzC" -- public beta key
-  b = http.request("http://api.giphy.com/v1/gifs/search?q="..text.."&api_key="..api_key)
+  url = "http://api.giphy.com/v1/gifs/search?q="..urlencode(text).."&api_key="..api_key
+  print(url)
+  b = http.request("http://api.giphy.com/v1/gifs/search?q="..urlencode(text).."&api_key="..api_key)
   local images = json:decode(b).data
   math.randomseed(os.time())
+  print(images)
+  print(#images)
   local i = math.random(0,#images)
+  print(i)
   return images[i].images.downsized.url
 end
 
@@ -29,14 +34,13 @@ function run(msg, matches)
 
   local receiver = get_receiver(msg)
   send_document_from_url(receiver, gif_url)
-  return "preparing to make you laugh"
+  return
 end
 
 return {
   description = "GIFs from telegram with Giphy API",
   usage = {
-    "!gif (term): Search and sends GIF from Giphy. If no param, sends a trending GIF.",
-    "!giphy (term): Search and sends GIF from Giphy. If no param, sends a trending GIF."
+    "!gif (term): Search and sends GIF from Giphy. If no param, sends a trending GIF."
     },
   patterns = {
     "^!gif$",

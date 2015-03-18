@@ -101,11 +101,7 @@ end
 
 return {
 	description = "Plugin to manage other plugins. Enable, disable or reload.", 
-	usage = {
-		"!plugins: list all plugins", 
-		"!plugins enable [plugin]: enable plugin",
-		"!plugins disable [plugin]: disable plugin",
-		"!plugins reload: reloads all plugins" },
+	usage = {},
 	patterns = {
 		"^!plugins$",
 		"^!plugins? (enable) (.*)$",

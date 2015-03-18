@@ -10,6 +10,10 @@ function get_receiver(msg)
   end
 end
 
+function get_receiver_force_user(msg)
+    return 'user#id'..msg.from.id
+end
+
 function is_chat_msg( msg )
   if msg.to.type == 'chat' then
     return true
@@ -305,4 +309,14 @@ function send_document_from_url(receiver, url, cb_function, cb_extra)
   local file_path = download_to_file(url, false)
   print("File path: "..file_path)
   _send_document(receiver, file_path, cb_function, cb_extra)
+end
+
+function urlencode(str)
+    if (str) then
+        str = string.gsub (str, "\n", "\r\n")
+        str = string.gsub (str, "([^%w ])",
+            function (c) return string.format ("%%%02X", string.byte(c)) end)
+        str = string.gsub (str, " ", "+")
+    end
+    return str
 end
